@@ -1,5 +1,5 @@
 class Mutations::CreateAuthor < GraphQL::Schema::Mutation
-  null false
+  null true
 
   argument :author, Types::AuthorInputType, required: true
 
