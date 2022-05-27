@@ -1,13 +1,10 @@
 class Mutations::CreateAuthor < GraphQL::Schema::Mutation
   null false
 
-  argument :first_name, String, required: true
-  argument :last_name, String, required: true
-  argument :yob, Int, required: true
-  argument :is_alive, Boolean, required: true
+  argument :author, Types::AuthorInputType, required: true
 
-  def resolve(first_name:, last_name:, yob:, is_alive:)
-    Author.create(first_name: first_name, last_name: last_name, yob: yob, is_alive: is_alive)
+  def resolve(author:)
+    Author.create author.to_h
   end
 end
 
@@ -17,5 +14,29 @@ end
 #     id
 #     firstName
 #     fullName
+#   }
+# }
+# query variables
+# {
+#   "firstName": "Anna",
+#   "lastName": "Hemingway",
+#   "yob": 1989,
+#   "isAlive": true
+# }
+
+# create mutation with input types
+# mutation createAuthor($author: AuthorInputType!){
+#   createAuthor(author: $author) {
+#     id
+#     firstName
+#   }
+# }
+# query variables -
+# {
+#   "author": {
+#     "firstName": "Anna",
+#     "lastName": "Hemingway",
+#     "yob": 1989,
+#     "isAlive": true
 #   }
 # }
